@@ -67,6 +67,20 @@ async def help_user(message : Message):
         print("Help command erorr:", erorr)
 
 
+@dp.message(Command("my_pets"))
+async def print_my_pets(message : Message):
+    petsy = await my_pets(message.from_user.id)
+    result = ""
+    for i in petsy:
+        result += f"""
+=== Id {i['id']} ===
+Name: {i['name']} 
+Species: {i['species']} 
+"""
+    await message.answer(result)
+
+
+
 
 
 @dp.message(Command("add_pet"))
@@ -83,6 +97,18 @@ async def create_new_pet(messaga : Message, command : CommandObject):
 
 
 
+
+
+@dp.message(Command("feeding_pet"))
+async def feeding_for_me(message : Message, command : CommandObject):
+    example = command.args
+    await log_care(message.from_user.id, int(example), 'feeding')
+    await message.answer("Ваш питомец хорошо покушал 🥩")
+
+
+# git add .
+# git commit -m "Добавил функцию add_pet для добавления нового питомца"
+# git push
 
 
 
@@ -102,3 +128,5 @@ async def main():
     
 if __name__ == "__main__":
     asyncio.run(main())
+
+
