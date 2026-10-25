@@ -114,12 +114,16 @@ async def vet_visit_for_me(message : Message, command : CommandObject):
 
 
 
+@dp.message(Command("vaccination_pet"))
+async def vaccination_for_me(message : Message, command : CommandObject):
+    example2 = command.args
+
+    await log_care(message.from_user.id, int(example2), 'vaccination')
+    await message.answer("Ваш питомец хорошо ")
 
 
 
-# git add .
-# git commit -m "Добавил функцию add_pet для добавления нового питомца"
-# git push
+
 
 
 
@@ -137,5 +141,4 @@ async def main():
     
 if __name__ == "__main__":
     asyncio.run(main())
-
 
