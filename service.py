@@ -46,8 +46,8 @@ WHERE id = $1 AND user_id = $2
 
 
 async def log_care(user_id, pet_id, type):
-    if type != "feeding" or type != "vet_visit" or type != "vaccination":
-        print("Можно только: feeding, vet_visit, vaccination")
+    if type not in ("feeding", "vet_visit", "vaccination"):
+        return "Можно только: feeding, vet_visit, vaccination"
     if not await pet_is_mine(user_id, pet_id):
         return "Питомец не найден"
     conn = await connection_db()
@@ -56,7 +56,7 @@ async def log_care(user_id, pet_id, type):
 INSERT INTO care_logs (pet_id, type) VALUES 
 ($1, $2)
 """, pet_id, type)
-        print("")
+        return "Событие записано ✅"
     finally:
         await conn.close()
 

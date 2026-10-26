@@ -185,7 +185,6 @@ async def his(messaga : Message ,command : CommandObject):
         pet_id = int(examle)
         if not await pet_is_mine(messaga.from_user.id, pet_id):
             await messaga.answer("Питомец не найден")
-            return
         pets = await my_history_vacanication(pet_id)
         if not pets:
             await messaga.answer("У этого питомца пока нет истории")
